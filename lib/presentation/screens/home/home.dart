@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:get/utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasks/domain/entities/project_entity.dart';
 import 'package:tasks/presentation/blocs/projectList/project_list_bloc.dart';
