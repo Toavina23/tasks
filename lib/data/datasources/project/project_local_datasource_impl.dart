@@ -50,4 +50,24 @@ class ProjectLocalDatasourceImpl extends ProjectLocalDataSource {
           "An unexpected error happened when trying to execute the operation");
     }
   }
+
+  @override
+  Future<ProjectModel> getProject(int projectId) async {
+    try {
+      Database db = await DbUtils.db();
+      Map<String, dynamic> projectData = await db.transaction((txn) async {
+        var queryResults =
+            await txn.query('project', where: "id=?", whereArgs: [projectId]);
+        if (queryResults.isNotEmpty) {
+          return queryResults.first;
+        }
+        throw ex.DatabaseException("The requested project could not be found");
+      });
+      ProjectModel project = ProjectModel.fromMap(projectData);
+      return project;
+    } on DatabaseException catch (_) {
+      throw ex.DatabaseException(
+          "An unexpected error happened when trying to execute the operation");
+    }
+  }
 }

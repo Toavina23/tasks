@@ -7,4 +7,5 @@ abstract class ProjectRepository {
   Future<Either<Failure, ProjectEntity>> addProject(
       Map<String, dynamic> project);
   Future<Either<Failure, void>> deleteProject(int projectId);
+  Future<Either<Failure, ProjectEntity>> getProject(int projectId);
 }

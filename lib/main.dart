@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasks/core/injection/injection.dart';
-import 'package:tasks/domain/usecases/project/get_all_projects.dart';
+import 'package:tasks/presentation/blocs/projectDetail/project_detail_bloc.dart';
 import 'package:tasks/presentation/blocs/projectList/project_list_bloc.dart';
 import 'package:tasks/presentation/routers/router.dart';
 import 'package:tasks/presentation/theme/app_theme.dart';
@@ -34,6 +34,11 @@ class _TasksState extends State<Tasks> {
                 BlocProvider<ProjectListBloc>(create: (context) {
                   return getIt.get<ProjectListBloc>();
                 }),
+                BlocProvider<ProjectDetailBloc>(
+                  create: (context) {
+                    return getIt.get<ProjectDetailBloc>();
+                  },
+                )
               ],
               child: MaterialApp.router(
                 theme: appTheme,

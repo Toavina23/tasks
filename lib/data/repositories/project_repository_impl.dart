@@ -44,4 +44,14 @@ class ProjectRepositoryImpl implements ProjectRepository {
       return left(AppFailure(e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, ProjectEntity>> getProject(int projectId) async {
+    try {
+      ProjectModel projectModel = await projectDataSource.getProject(projectId);
+      return right(projectModel.toEntity());
+    } on DatabaseException catch (e) {
+      return left(AppFailure(e.message));
+    }
+  }
 }

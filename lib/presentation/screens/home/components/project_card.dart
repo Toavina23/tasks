@@ -19,39 +19,48 @@ class ProjectCard extends StatelessWidget {
       context.pop();
     }
 
+    onLongPress() {
+      showBottomSheet(
+        context: context,
+        builder: (context) {
+          return Wrap(
+            children: [
+              ListTile(
+                onTap: onDelete,
+                title: Text(
+                  "Delete",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Colors.red),
+                ),
+                leading: const Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+              )
+            ],
+          );
+        },
+      );
+    }
+
+    onTap() {
+      context.push("/projects/${project.id}");
+    }
+
     return Ink(
       //padding: EdgeInsets.symmetric(vertical: 5.0.sp, horizontal: 5.0.sp),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(30.sp)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30.sp),
+      ),
       child: LayoutBuilder(
         builder: (context, boxConstraints) {
           return InkWell(
             borderRadius: BorderRadius.circular(30.sp),
-            onLongPress: () {
-              showBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Wrap(
-                    children: [
-                      ListTile(
-                        onTap: onDelete,
-                        title: Text(
-                          "Delete",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: Colors.red),
-                        ),
-                        leading: const Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
-                      )
-                    ],
-                  );
-                },
-              );
-            },
+            onLongPress: onLongPress,
+            onTap: onTap,
             child: Column(
               children: [
                 Gap(10.sp),
