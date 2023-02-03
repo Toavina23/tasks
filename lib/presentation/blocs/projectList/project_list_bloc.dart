@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasks/core/errors/failures.dart';
 import 'package:tasks/domain/entities/project_entity.dart';
-import 'package:tasks/domain/usecases/delete_item.dart';
-import 'package:tasks/domain/usecases/project/add_project.dart';
-import 'package:tasks/domain/usecases/project/get_all_projects.dart';
+import 'package:tasks/domain/usecases/projectList/delete_item.dart';
+import 'package:tasks/domain/usecases/projectList/add_project.dart';
+import 'package:tasks/domain/usecases/projectList/get_all_projects.dart';
 import 'package:tasks/presentation/blocs/projectList/project_list_event.dart';
 import 'package:tasks/presentation/blocs/projectList/project_list_state.dart';
 
