@@ -7,20 +7,20 @@ final appTheme = ThemeData(
   primaryColor: AppColors.primary,
   scaffoldBackgroundColor: AppColors.scaffoldColor,
   textTheme: ThemeData.light().textTheme.copyWith(
-        headline1: TextStyle(
+        displayLarge: TextStyle(
             fontSize: 32.sp,
             color: AppColors.textColor,
             fontWeight: FontWeight.w600),
-        headline2: TextStyle(
+        displayMedium: TextStyle(
             fontSize: 28.sp,
             color: AppColors.textColor,
             fontWeight: FontWeight.w600),
-        headline3: TextStyle(fontSize: 24.sp, color: AppColors.textColor),
-        bodyText1: TextStyle(fontSize: 18.sp, color: AppColors.textColor),
-        bodyText2: TextStyle(fontSize: 16.sp, color: AppColors.textColor),
-        subtitle1:
+        displaySmall: TextStyle(fontSize: 24.sp, color: AppColors.textColor),
+        bodyLarge: TextStyle(fontSize: 18.sp, color: AppColors.textColor),
+        bodyMedium: TextStyle(fontSize: 16.sp, color: AppColors.textColor),
+        titleMedium:
             TextStyle(color: AppColors.secondaryTextColor, fontSize: 18.sp),
-        subtitle2:
+        titleSmall:
             TextStyle(color: AppColors.secondaryTextColor, fontSize: 16.sp),
       ),
   buttonTheme: ButtonThemeData(

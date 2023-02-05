@@ -12,7 +12,7 @@ class AppScafold extends StatelessWidget {
       body: SafeArea(
         maintainBottomViewPadding: true,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0.sp),
+          padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0.sp),
           child: child,
         ),
       ),

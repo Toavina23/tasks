@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tasks/presentation/blocs/projectDetail/project_detail_bloc.dart';
 import 'package:tasks/presentation/blocs/projectDetail/project_detail_state.dart';
-import 'package:tasks/presentation/screens/projectDetail/components/todo_item_component.dart';
+import 'package:tasks/presentation/screens/projectDetail/components/task_component.dart';
 
 class ProjectDetail extends StatefulWidget {
   const ProjectDetail({super.key});
@@ -47,7 +46,8 @@ class _ProjectDetailState extends State<ProjectDetail> {
                               children: [
                                 Text(
                                   state.project.name,
-                                  style: Theme.of(context).textTheme.headline3,
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
                                 ),
                                 Text(
                                   "Ajouté le: ${state.project.createdAt.day}/${state.project.createdAt.month}/${state.project.createdAt.year}",
@@ -132,14 +132,14 @@ class _ProjectDetailState extends State<ProjectDetail> {
                           children: [
                             Text(
                               "Liste des tâches",
-                              style: Theme.of(context).textTheme.headline3,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                           ],
                         ),
                         Gap(20.sp),
                         Expanded(
                           child: ListView(
-                            children: const [TodoItem()],
+                            children: const [Task()],
                           ),
                         )
                       ],
