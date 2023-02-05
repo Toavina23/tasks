@@ -7,6 +7,7 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tasks/domain/entities/project_entity.dart';
 import 'package:tasks/presentation/blocs/projectList/project_list_bloc.dart';
 import 'package:tasks/presentation/blocs/projectList/project_list_event.dart';
+import 'package:tasks/presentation/theme/app_colors.dart';
 
 class ProjectCard extends StatelessWidget {
   final ProjectEntity project;
@@ -54,6 +55,13 @@ class ProjectCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30.sp),
+        boxShadow: const [
+          BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 1,
+              blurRadius: 15,
+              offset: Offset(1, 15))
+        ],
       ),
       child: LayoutBuilder(
         builder: (context, boxConstraints) {
@@ -77,7 +85,7 @@ class ProjectCard extends StatelessWidget {
                           totalSteps: 100,
                           currentStep: 74,
                           stepSize: 10,
-                          selectedColor: Colors.greenAccent,
+                          selectedColor: AppColors.terciary,
                           unselectedColor: Colors.grey[200],
                           padding: 0,
                           width: boxConstraints.maxWidth * 0.6,

@@ -43,6 +43,13 @@ class _HomeState extends State<Home> {
 
   _addProject() {
     showBottomSheet(
+      elevation: 20,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.sp),
+          topRight: Radius.circular(20.sp),
+        ),
+      ),
       context: context,
       builder: (context) {
         return SizedBox(
@@ -51,9 +58,17 @@ class _HomeState extends State<Home> {
           child: Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.only(top: 20.sp, left: 30.sp, right: 30.sp),
+                padding: EdgeInsets.only(top: 5.sp, left: 30.sp, right: 30.sp),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.grey[400]),
+                      width: 30.sp,
+                      height: 8.sp,
+                    ),
                     Text(
                       "Nouveau projet",
                       style: Theme.of(context).textTheme.bodyLarge,
@@ -152,6 +167,7 @@ class _HomeState extends State<Home> {
           Gap(20.sp),
           Row(
             children: [
+              Gap(10.sp),
               Text(
                 "Vos Projets",
                 style: Theme.of(context).textTheme.displayLarge,
@@ -172,6 +188,8 @@ class _HomeState extends State<Home> {
                         }
                         List<ProjectEntity> projects = state.results;
                         return GridView.builder(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5.0.sp, horizontal: 10.0.sp),
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     mainAxisSpacing: 10.sp,
