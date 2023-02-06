@@ -14,45 +14,55 @@ class _TaskState extends State<Task> {
   final _borderRadius = BorderRadius.circular(10.sp);
   @override
   Widget build(BuildContext context) {
+    var actionPane = ActionPane(
+      extentRatio: 1,
+      motion: const ScrollMotion(),
+      children: [
+        SlidableAction(
+          onPressed: (_) {},
+          borderRadius: _borderRadius,
+          icon: Icons.check,
+          label: "Terminer",
+          backgroundColor: Colors.green[500]!,
+          foregroundColor: Colors.white,
+        ),
+        SlidableAction(
+          borderRadius: _borderRadius,
+          onPressed: (_) {},
+          icon: Icons.check,
+          label: "Suspendre",
+          backgroundColor: Colors.amber[500]!,
+          foregroundColor: Colors.white,
+        ),
+        SlidableAction(
+          borderRadius: _borderRadius,
+          onPressed: (_) {},
+          icon: Icons.check,
+          label: "Commencer",
+          backgroundColor: Colors.blue[500]!,
+          foregroundColor: Colors.white,
+        ),
+      ],
+    );
     return Stack(children: [
-      Material(
-        type: MaterialType.transparency,
-        child: Slidable(
-          key: const Key("erazear"),
-          startActionPane: ActionPane(
-            extentRatio: 1,
-            motion: const ScrollMotion(),
-            children: [
-              SlidableAction(
-                onPressed: (_) {},
-                icon: Icons.check,
-                label: "Terminer",
-                backgroundColor: Colors.green[500]!,
-                foregroundColor: Colors.white,
-              ),
-              SlidableAction(
-                borderRadius: _borderRadius,
-                onPressed: (_) {},
-                icon: Icons.check,
-                label: "Suspendre",
-                backgroundColor: Colors.amber[500]!,
-                foregroundColor: Colors.white,
-              ),
-              SlidableAction(
-                borderRadius: _borderRadius,
-                onPressed: (_) {},
-                icon: Icons.check,
-                label: "Commencer",
-                backgroundColor: Colors.blue[500]!,
-                foregroundColor: Colors.white,
-              ),
-            ],
-          ),
+      Slidable(
+        key: const Key("erazear"),
+        startActionPane: actionPane,
+        child: Material(
+          borderRadius: _borderRadius,
+          elevation: 8,
           child: ListTile(
             title: const Text("Do something with someone"),
+            leading: Icon(
+              Icons.check_circle,
+              color: Colors.green[200],
+              size: 30.sp,
+            ),
             textColor: AppColors.textColor,
-            tileColor: Colors.blueGrey[100],
-            shape: RoundedRectangleBorder(borderRadius: _borderRadius),
+            shape: RoundedRectangleBorder(
+              borderRadius: _borderRadius,
+              //side: BorderSide(color: Colors.grey[500]!, width: 1.sp),
+            ),
           ),
         ),
       ),

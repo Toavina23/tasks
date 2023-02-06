@@ -7,6 +7,9 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tasks/presentation/blocs/projectDetail/project_detail_bloc.dart';
 import 'package:tasks/presentation/blocs/projectDetail/project_detail_state.dart';
 import 'package:tasks/presentation/screens/projectDetail/components/task_component.dart';
+import 'package:tasks/presentation/theme/app_colors.dart';
+
+import 'components/tab_title.dart';
 
 class ProjectDetail extends StatefulWidget {
   const ProjectDetail({super.key});
@@ -15,21 +18,39 @@ class ProjectDetail extends StatefulWidget {
   State<ProjectDetail> createState() => _ProjectDetailState();
 }
 
-class _ProjectDetailState extends State<ProjectDetail> {
+class _ProjectDetailState extends State<ProjectDetail>
+    with TickerProviderStateMixin {
   final _decoration = BoxDecoration(
     color: Colors.white,
     borderRadius: BorderRadius.circular(10.sp),
   );
-  final _padding = EdgeInsets.all(12.sp);
+  final _padding = EdgeInsets.all(8.sp);
+  late TabController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<ProjectDetailBloc, ProjectDetailState>(
         builder: (context, state) {
           if (state is ProjectDetailHasData) {
+            var tabs = <Widget>[
+              const TabTitle(title: "IN WORK"),
+              const TabTitle(title: "DONE"),
+              const TabTitle(title: "WAITING")
+            ];
             return Column(
               children: [
-                Gap(20.sp),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.25,
                   padding: _padding,
@@ -40,21 +61,24 @@ class _ProjectDetailState extends State<ProjectDetail> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Wrap(
-                              direction: Axis.vertical,
-                              spacing: 5.sp,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   state.project.name,
                                   style:
                                       Theme.of(context).textTheme.displaySmall,
                                 ),
+                                Gap(10.sp),
                                 Text(
                                   "Ajouté le: ${state.project.createdAt.day}/${state.project.createdAt.month}/${state.project.createdAt.year}",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyLarge!
-                                      .copyWith(color: Colors.grey[500]),
+                                      .bodyMedium!
+                                      .copyWith(
+                                        color: AppColors.secondaryTextColor,
+                                      ),
                                 )
                               ],
                             ),
@@ -95,6 +119,7 @@ class _ProjectDetailState extends State<ProjectDetail> {
                         Gap(10.sp),
                         Row(
                           children: [
+                            Gap(10.sp),
                             Expanded(
                               child: Text(
                                 state.project.description,
@@ -121,7 +146,6 @@ class _ProjectDetailState extends State<ProjectDetail> {
                     ),
                   ),
                 ),
-                Gap(10.sp),
                 Expanded(
                   child: Container(
                     decoration: _decoration,
@@ -131,15 +155,31 @@ class _ProjectDetailState extends State<ProjectDetail> {
                         Row(
                           children: [
                             Text(
-                              "Liste des tâches",
-                              style: Theme.of(context).textTheme.displaySmall,
+                              "Tasks",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall!
+                                  .copyWith(fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),
                         Gap(20.sp),
+                        TabBar(
+                          padding: EdgeInsets.only(bottom: 20.sp),
+                          isScrollable: true,
+                          controller: _controller,
+                          tabs: tabs,
+                        ),
                         Expanded(
-                          child: ListView(
-                            children: const [Task()],
+                          child: TabBarView(
+                            controller: _controller,
+                            children: [
+                              ListView(
+                                children: const [Task()],
+                              ),
+                              const Text("text"),
+                              const Text("text")
+                            ],
                           ),
                         )
                       ],

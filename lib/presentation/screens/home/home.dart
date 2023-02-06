@@ -69,9 +69,10 @@ class _HomeState extends State<Home> {
                       width: 30.sp,
                       height: 8.sp,
                     ),
+                    Gap(10.sp),
                     Text(
-                      "Nouveau projet",
                       style: Theme.of(context).textTheme.bodyLarge,
+                      "Nouveau projet",
                     ),
                     Gap(20.sp),
                     AppTextInput("Nom du projet", projectNameConctroller,
