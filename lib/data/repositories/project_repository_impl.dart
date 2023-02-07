@@ -1,8 +1,8 @@
-import 'dart:ffi';
-
 import 'package:tasks/core/errors/exceptions.dart';
 import 'package:tasks/data/datasources/project/project_datasource.dart';
+import 'package:tasks/data/models/category_model.dart';
 import 'package:tasks/data/models/project_model.dart';
+import 'package:tasks/domain/entities/category_entity.dart';
 import 'package:tasks/domain/entities/project_entity.dart';
 import 'package:tasks/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
@@ -25,8 +25,15 @@ class ProjectRepositoryImpl implements ProjectRepository {
 
   @override
   Future<Either<Failure, ProjectEntity>> addProject(
-      Map<String, dynamic> project) async {
-    project["createdAt"] = DateTime.now().millisecondsSinceEpoch;
+      String projectName, CategoryEntity category) async {
+    Map<String, dynamic> project = {};
+    Map<String, dynamic> categoryMap =
+        CategoryModel.fromEntity(category).toMap();
+    project.addAll({
+      "name": projectName,
+      "categoryId": categoryMap["id"],
+      "createdAt": DateTime.now().millisecondsSinceEpoch
+    });
     try {
       ProjectModel newProject = await projectDataSource.saveProject(project);
       return right(newProject.toEntity());
