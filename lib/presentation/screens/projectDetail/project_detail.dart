@@ -67,8 +67,10 @@ class _ProjectDetailState extends State<ProjectDetail>
                               children: [
                                 Text(
                                   state.project.name,
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall!
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 Gap(10.sp),
                                 Text(
@@ -93,22 +95,22 @@ class _ProjectDetailState extends State<ProjectDetail>
                                       selectedColor: Colors.greenAccent,
                                       unselectedColor: Colors.grey[200],
                                       padding: 0,
-                                      width: boxConstraints.maxHeight * 0.4,
-                                      height: boxConstraints.maxHeight * 0.4,
+                                      width: boxConstraints.maxHeight * 0.35,
+                                      height: boxConstraints.maxHeight * 0.35,
                                       selectedStepSize: 15,
                                       roundedCap: (_, __) => true,
                                     ),
                                   ),
                                 ),
                                 SizedBox(
-                                  height: boxConstraints.maxHeight * 0.4,
-                                  width: boxConstraints.maxHeight * 0.4,
+                                  width: boxConstraints.maxHeight * 0.35,
+                                  height: boxConstraints.maxHeight * 0.35,
                                   child: Center(
                                     child: Text(
                                       "${70} %",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyMedium,
+                                          .titleSmall,
                                     ),
                                   ),
                                 )
@@ -153,6 +155,7 @@ class _ProjectDetailState extends State<ProjectDetail>
                     child: Column(
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               "Tasks",
@@ -161,6 +164,14 @@ class _ProjectDetailState extends State<ProjectDetail>
                                   .displaySmall!
                                   .copyWith(fontWeight: FontWeight.w500),
                             ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.add_box,
+                                color: AppColors.primary,
+                                size: 30.sp,
+                              ),
+                            )
                           ],
                         ),
                         Gap(20.sp),
