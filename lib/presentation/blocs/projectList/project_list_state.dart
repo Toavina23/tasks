@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:tasks/domain/entities/category_entity.dart';
 import 'package:tasks/domain/entities/project_entity.dart';
 
 abstract class ProjectListState extends Equatable {
@@ -44,3 +45,22 @@ class ProjectDeteleFailure extends ProjectListState {
   @override
   List<Object?> get props => [message];
 }
+
+class FetchCategoryListFailure extends ProjectListState {
+  final String message;
+  const FetchCategoryListFailure(this.message);
+  @override
+  List<Object?> get props => [message];
+}
+
+class CategoryListHasData extends ProjectListState {
+  final List<CategoryEntity> results;
+  const CategoryListHasData({required this.results});
+
+  @override
+  List<Object?> get props => [results];
+}
+
+class CategoryListLoading extends ProjectListState {}
+
+class CategoryListEmpty extends ProjectListState {}

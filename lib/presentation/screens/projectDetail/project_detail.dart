@@ -122,14 +122,14 @@ class _ProjectDetailState extends State<ProjectDetail>
                         Row(
                           children: [
                             Gap(10.sp),
-                            Expanded(
+                            /*Expanded(
                               child: Text(
                                 state.project.description,
                                 softWrap: true,
                                 overflow: TextOverflow.visible,
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
-                            )
+                            )*/
                           ],
                         ),
                         Gap(10.sp),

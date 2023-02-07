@@ -6,7 +6,7 @@ import 'package:tasks/presentation/blocs/projectDetail/project_detail_event.dart
 import 'package:tasks/presentation/blocs/projectList/project_list_bloc.dart';
 import 'package:tasks/presentation/blocs/projectList/project_list_event.dart';
 import 'package:tasks/presentation/components/app_scaffold.dart';
-import 'package:tasks/presentation/screens/home/home.dart';
+import 'package:tasks/presentation/screens/home/project_list.dart';
 import 'package:tasks/presentation/screens/projectDetail/project_detail.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -18,7 +18,7 @@ final GoRouter appRouter = GoRouter(
           path: '/',
           builder: (context, state) {
             context.read<ProjectListBloc>().add(FetchProjectListEvent());
-            return const Home();
+            return const ProjectList();
           },
         ),
         GoRoute(

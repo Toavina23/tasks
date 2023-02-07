@@ -69,44 +69,53 @@ class ProjectCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(30.sp),
             onLongPress: onLongPress,
             onTap: onTap,
-            child: Column(
-              children: [
-                Gap(10.sp),
-                Text(
-                  project.name,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                Gap(10.sp),
-                Stack(
-                  children: [
-                    Center(
-                      child: SizedBox(
-                        child: CircularStepProgressIndicator(
-                          totalSteps: 100,
-                          currentStep: 74,
-                          stepSize: 10,
-                          selectedColor: AppColors.terciary,
-                          unselectedColor: Colors.grey[200],
-                          padding: 0,
-                          width: boxConstraints.maxWidth * 0.6,
-                          height: boxConstraints.maxHeight * 0.6,
-                          selectedStepSize: 15,
-                          roundedCap: (_, __) => true,
-                        ),
-                      ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Gap(10.sp),
+                  SizedBox(
+                    width: boxConstraints.maxWidth,
+                    child: Text(
+                      project.name,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      softWrap: true,
+                      overflow: TextOverflow.visible,
                     ),
-                    SizedBox(
-                      height: boxConstraints.maxHeight * 0.6,
-                      child: Center(
-                        child: Text(
-                          "${70} %",
-                          style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Gap(10.sp),
+                  Stack(
+                    children: [
+                      Center(
+                        child: SizedBox(
+                          child: CircularStepProgressIndicator(
+                            totalSteps: 100,
+                            currentStep: 74,
+                            stepSize: 10,
+                            selectedColor: AppColors.terciary,
+                            unselectedColor: Colors.grey[200],
+                            padding: 0,
+                            width: boxConstraints.maxWidth * 0.5,
+                            height: boxConstraints.maxHeight * 0.5,
+                            selectedStepSize: 15,
+                            roundedCap: (_, __) => true,
+                          ),
                         ),
                       ),
-                    )
-                  ],
-                )
-              ],
+                      SizedBox(
+                        height: boxConstraints.maxHeight * 0.5,
+                        child: Center(
+                          child: Text(
+                            "${70} %",
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           );
         },
