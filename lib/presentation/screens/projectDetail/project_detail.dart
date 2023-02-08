@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tasks/presentation/blocs/projectDetail/project_detail_bloc.dart';
 import 'package:tasks/presentation/screens/projectDetail/components/task_component.dart';
 import 'package:tasks/presentation/theme/app_colors.dart';
@@ -40,6 +39,9 @@ class _ProjectDetailState extends State<ProjectDetail>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Project details"),
+      ),
       body: BlocConsumer<ProjectDetailBloc, ProjectDetailState>(
         listenWhen: (previous, current) =>
             current.status != ProjectDetailStatus.loaded,
@@ -62,7 +64,7 @@ class _ProjectDetailState extends State<ProjectDetail>
             return Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.20,
+                  height: MediaQuery.of(context).size.height * 0.15,
                   padding: _padding,
                   decoration: _decoration,
                   child: LayoutBuilder(
@@ -71,75 +73,59 @@ class _ProjectDetailState extends State<ProjectDetail>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  state.project!.name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall!
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                ),
-                                Gap(10.sp),
-                                Text(
-                                  "Added on  ${state.project!.displayCreationDate}",
+                            Text(
+                              state.project!.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              height: 25.sp,
+                              decoration: BoxDecoration(
+                                color: AppColors.terciary,
+                                borderRadius: BorderRadius.circular(10.sp),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  state.project!.category.name!,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!
-                                      .copyWith(
-                                        color: AppColors.secondaryTextColor,
-                                      ),
-                                )
-                              ],
-                            ),
-                            Stack(
-                              children: [
-                                Center(
-                                  child: SizedBox(
-                                    child: CircularStepProgressIndicator(
-                                      totalSteps: 100,
-                                      currentStep: 74,
-                                      stepSize: 10,
-                                      selectedColor: Colors.greenAccent,
-                                      unselectedColor: Colors.grey[200],
-                                      padding: 0,
-                                      width: boxConstraints.maxHeight * 0.35,
-                                      height: boxConstraints.maxHeight * 0.35,
-                                      selectedStepSize: 15,
-                                      roundedCap: (_, __) => true,
-                                    ),
-                                  ),
+                                      .copyWith(color: Colors.white),
                                 ),
-                                SizedBox(
-                                  width: boxConstraints.maxHeight * 0.35,
-                                  height: boxConstraints.maxHeight * 0.35,
-                                  child: Center(
-                                    child: Text(
-                                      "${70} %",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    ),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Added on  ${state.project!.displayCreationDate}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: AppColors.secondaryTextColor,
                                   ),
-                                )
-                              ],
                             )
                           ],
                         ),
                         Gap(10.sp),
                         OutlinedButton(
-                            onPressed: () {},
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Text("Project metrics"),
-                                Gap(10.sp),
-                                const Icon(Icons.auto_graph_outlined)
-                              ],
-                            ))
+                          onPressed: () {},
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text("Project metrics"),
+                              Gap(10.sp),
+                              const Icon(Icons.auto_graph_outlined)
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),

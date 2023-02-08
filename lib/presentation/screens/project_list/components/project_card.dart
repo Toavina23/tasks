@@ -93,7 +93,7 @@ class ProjectCard extends StatelessWidget {
                             totalSteps: 100,
                             currentStep: 74,
                             stepSize: 10,
-                            selectedColor: AppColors.terciary,
+                            selectedColor: AppColors.secondary,
                             unselectedColor: Colors.grey[200],
                             padding: 0,
                             width: boxConstraints.maxWidth * 0.5,

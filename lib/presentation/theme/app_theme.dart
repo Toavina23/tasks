@@ -62,7 +62,13 @@ final appTheme = ThemeData(
     ),
   ),
   appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.scaffoldColor,
-      titleTextStyle: TextStyle(fontSize: 24.sp, color: AppColors.textColor),
-      centerTitle: true),
+    foregroundColor: AppColors.textColor,
+    elevation: 0,
+    backgroundColor: AppColors.scaffoldColor,
+    titleTextStyle: TextStyle(
+        fontSize: 20.sp,
+        color: AppColors.textColor,
+        fontWeight: FontWeight.bold),
+    centerTitle: true,
+  ),
 );

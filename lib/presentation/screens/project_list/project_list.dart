@@ -237,6 +237,17 @@ class _ProjectListState extends State<ProjectList> {
       child: Container(),
     );
     return Scaffold(
+      appBar: AppBar(
+          title: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            "Tasks",
+          ),
+          Gap(10.sp),
+          const Icon(Icons.check),
+        ],
+      )),
       body: Column(
         children: [
           Gap(20.sp),
@@ -245,7 +256,10 @@ class _ProjectListState extends State<ProjectList> {
               Gap(10.sp),
               Text(
                 "Vos Projets",
-                style: Theme.of(context).textTheme.displayLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall!
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -289,7 +303,7 @@ class _ProjectListState extends State<ProjectList> {
                             children: [
                               Icon(
                                 Icons.close_rounded,
-                                color: AppColors.secondary,
+                                color: Colors.red[400],
                                 size: MediaQuery.of(context).size.width * 0.4,
                               ),
                               Text(
@@ -314,11 +328,14 @@ class _ProjectListState extends State<ProjectList> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addProject,
-        backgroundColor: AppColors.primary,
-        tooltip: "Add a new project",
-        child: const Icon(Icons.add),
+      floatingActionButton: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.40,
+        child: ElevatedButton(
+          onPressed: _addProject,
+          child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [Text("Nouveau"), Icon(Icons.add)]),
+        ),
       ),
     );
   }
