@@ -12,7 +12,7 @@ import 'package:tasks/presentation/blocs/projectList/project_list_event.dart';
 import 'package:tasks/presentation/blocs/projectList/project_list_state.dart';
 import 'package:tasks/presentation/components/select.dart';
 import 'package:tasks/presentation/components/text_input.dart';
-import 'package:tasks/presentation/screens/home/components/project_card.dart';
+import 'package:tasks/presentation/screens/project_list/components/project_card.dart';
 import 'package:tasks/presentation/theme/app_colors.dart';
 
 class ProjectList extends StatefulWidget {
