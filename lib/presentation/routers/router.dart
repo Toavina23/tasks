@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasks/presentation/blocs/projectDetail/project_detail_bloc.dart';
-import 'package:tasks/presentation/blocs/projectDetail/project_detail_event.dart';
 import 'package:tasks/presentation/blocs/projectList/project_list_bloc.dart';
 import 'package:tasks/presentation/blocs/projectList/project_list_event.dart';
 import 'package:tasks/presentation/components/app_scaffold.dart';

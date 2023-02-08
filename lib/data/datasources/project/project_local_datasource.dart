@@ -57,8 +57,8 @@ class ProjectLocalDatasource extends ProjectLocalDataSource {
     try {
       Database db = await DbUtils.db();
       Map<String, dynamic> projectData = await db.transaction((txn) async {
-        var queryResults =
-            await txn.rawQuery(" ${Queries.project} where id = ?", [projectId]);
+        var queryResults = await txn
+            .rawQuery(" ${Queries.project} where project.id = ?", [projectId]);
         if (queryResults.isNotEmpty) {
           return queryResults.first;
         }

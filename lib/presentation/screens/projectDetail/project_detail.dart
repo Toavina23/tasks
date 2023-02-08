@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tasks/presentation/blocs/projectDetail/project_detail_bloc.dart';
-import 'package:tasks/presentation/blocs/projectDetail/project_detail_state.dart';
 import 'package:tasks/presentation/screens/projectDetail/components/task_component.dart';
 import 'package:tasks/presentation/theme/app_colors.dart';
 
@@ -41,9 +40,20 @@ class _ProjectDetailState extends State<ProjectDetail>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ProjectDetailBloc, ProjectDetailState>(
+      body: BlocConsumer<ProjectDetailBloc, ProjectDetailState>(
+        listenWhen: (previous, current) =>
+            current.status != ProjectDetailStatus.loaded,
+        listener: (context, state) {
+          if (state.status == ProjectDetailStatus.loading) {
+            EasyLoading.show();
+          } else if (state.status == ProjectDetailStatus.failure) {
+            EasyLoading.showError(state.failure!.message);
+          }
+        },
+        buildWhen: (previous, current) =>
+            previous.status != ProjectDetailStatus.loaded,
         builder: (context, state) {
-          if (state is ProjectDetailHasData) {
+          if (state.status == ProjectDetailStatus.loaded) {
             var tabs = <Widget>[
               const TabTitle(title: "IN WORK"),
               const TabTitle(title: "DONE"),
@@ -52,7 +62,7 @@ class _ProjectDetailState extends State<ProjectDetail>
             return Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.25,
+                  height: MediaQuery.of(context).size.height * 0.20,
                   padding: _padding,
                   decoration: _decoration,
                   child: LayoutBuilder(
@@ -66,7 +76,7 @@ class _ProjectDetailState extends State<ProjectDetail>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  state.project.name,
+                                  state.project!.name,
                                   style: Theme.of(context)
                                       .textTheme
                                       .displaySmall!
@@ -74,7 +84,7 @@ class _ProjectDetailState extends State<ProjectDetail>
                                 ),
                                 Gap(10.sp),
                                 Text(
-                                  "Ajouté le: ${state.project.createdAt.day}/${state.project.createdAt.month}/${state.project.createdAt.year}",
+                                  "Added on  ${state.project!.displayCreationDate}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!
@@ -116,20 +126,6 @@ class _ProjectDetailState extends State<ProjectDetail>
                                 )
                               ],
                             )
-                          ],
-                        ),
-                        Gap(10.sp),
-                        Row(
-                          children: [
-                            Gap(10.sp),
-                            /*Expanded(
-                              child: Text(
-                                state.project.description,
-                                softWrap: true,
-                                overflow: TextOverflow.visible,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            )*/
                           ],
                         ),
                         Gap(10.sp),
@@ -200,10 +196,6 @@ class _ProjectDetailState extends State<ProjectDetail>
                 Gap(20.sp)
               ],
             );
-          } else if (state is ProjectDetailLoading) {
-            EasyLoading.show();
-          } else if (state is ProjectDetailFailure) {
-            EasyLoading.showError(state.message);
           }
           return Container();
         },

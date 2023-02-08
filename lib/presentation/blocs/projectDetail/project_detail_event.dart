@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of "project_detail_bloc.dart";
 
 class ProjectDetailEvent extends Equatable {
   const ProjectDetailEvent();
