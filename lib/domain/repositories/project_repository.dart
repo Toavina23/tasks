@@ -8,5 +8,5 @@ abstract class ProjectRepository {
   Future<Either<Failure, ProjectEntity>> addProject(
       String projectName, CategoryEntity category);
   Future<Either<Failure, void>> deleteProject(int projectId);
-  Future<Either<Failure, ProjectEntity>> getProject(int projectId);
+  Future<Either<Failure, List<Object>>> getProject(int projectId);
 }

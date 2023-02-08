@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasks/core/errors/failures.dart';
 import 'package:tasks/domain/entities/project_entity.dart';
+import 'package:tasks/domain/entities/task_entity.dart';
 import 'package:tasks/domain/usecases/projectDetail/get_project_details.dart';
 part 'project_detail_state.dart';
 part 'project_detail_event.dart';
@@ -19,7 +20,7 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
     emit(state.copyWith(
       status: () => ProjectDetailStatus.loading,
     ));
-    Either<Failure, ProjectEntity> result =
+    Either<Failure, List<Object>> result =
         await _getProjectDetails.execute(event.projectId);
     result.fold(
       (failure) {
@@ -32,10 +33,23 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
           );
         }
       },
-      (data) {
+      (data) async {
+        ProjectEntity projectEntity = data[0] as ProjectEntity;
+        Stream<List<TaskEntity>> taskStream =
+            data[1] as Stream<List<TaskEntity>>;
+        await emit.forEach<List<TaskEntity>>(
+          taskStream,
+          onData: (data) {
+            return state.copyWith(
+              status: () => ProjectDetailStatus.loaded,
+              project: () => projectEntity,
+            );
+          },
+        );
         emit(
           state.copyWith(
-              status: () => ProjectDetailStatus.loaded, project: () => data),
+              status: () => ProjectDetailStatus.loaded,
+              project: () => projectEntity),
         );
       },
     );

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:tasks/data/datasources/category/category_local_datasource.dart';
 import 'package:tasks/data/datasources/project/project_local_datasource.dart';
+import 'package:tasks/data/datasources/task/task_local_datasource.dart';
 import 'package:tasks/data/repositories/category_repository_impl.dart';
 import 'package:tasks/data/repositories/project_repository_impl.dart';
 import 'package:tasks/domain/repositories/category_repository.dart';
@@ -21,9 +22,11 @@ Future<void> initialize() async {
       () => ProjectLocalDatasource());
   getIt.registerLazySingleton<CategoryLocalDataSource>(
       () => const CategoryLocalDataSource());
+  getIt.registerLazySingleton<TaskLocalDatasource>(() => TaskLocalDatasource());
   //repositories
   getIt.registerLazySingleton<ProjectRepositoryImpl>(
     () => ProjectRepositoryImpl(
+      taskDatasource: getIt.get<TaskLocalDatasource>(),
       projectDataSource: getIt.get<ProjectLocalDatasource>(),
     ),
   );

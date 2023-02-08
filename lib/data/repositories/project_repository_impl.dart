@@ -1,16 +1,25 @@
 import 'package:tasks/core/errors/exceptions.dart';
 import 'package:tasks/data/datasources/project/project_datasource.dart';
+import 'package:tasks/data/datasources/task/task_datasource.dart';
 import 'package:tasks/data/models/category_model.dart';
 import 'package:tasks/data/models/project_model.dart';
+import 'package:tasks/data/models/task_model.dart';
 import 'package:tasks/domain/entities/category_entity.dart';
 import 'package:tasks/domain/entities/project_entity.dart';
 import 'package:tasks/core/errors/failures.dart';
 import 'package:dartz/dartz.dart';
+import 'package:rxdart/subjects.dart';
+import 'package:tasks/domain/entities/task_entity.dart';
 import 'package:tasks/domain/repositories/project_repository.dart';
 
 class ProjectRepositoryImpl implements ProjectRepository {
-  final ProjectLocalDataSource projectDataSource;
-  const ProjectRepositoryImpl({required this.projectDataSource});
+  final ProjectDataSource projectDataSource;
+  final TaskDatasource taskDatasource;
+  final _taskStreamController =
+      BehaviorSubject<List<TaskEntity>>.seeded(const []);
+  ProjectRepositoryImpl(
+      {required this.projectDataSource, required this.taskDatasource});
+
   @override
   Future<Either<Failure, List<ProjectEntity>>> getProjects() async {
     try {
@@ -53,12 +62,25 @@ class ProjectRepositoryImpl implements ProjectRepository {
   }
 
   @override
-  Future<Either<Failure, ProjectEntity>> getProject(int projectId) async {
+  Future<Either<Failure, List<Object>>> getProject(int projectId) async {
     try {
       ProjectModel projectModel = await projectDataSource.getProject(projectId);
-      return right(projectModel.toEntity());
+      List<TaskModel> taskModels =
+          await taskDatasource.getProjectTasks(projectId, null);
+      _taskStreamController.add(
+        taskModels
+            .map(
+              (task) => task.toEntity(),
+            )
+            .toList(),
+      );
+      return right(
+          [projectModel.toEntity(), _taskStreamController.asBroadcastStream()]);
     } on DatabaseException catch (e) {
       return left(AppFailure(e.message));
+    } catch (_) {
+      return left(const AppFailure(
+          "An unexpected error happened during the operation"));
     }
   }
 }

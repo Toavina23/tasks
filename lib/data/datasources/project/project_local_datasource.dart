@@ -5,7 +5,7 @@ import 'package:tasks/core/utils/db/queries.dart';
 import 'package:tasks/data/datasources/project/project_datasource.dart';
 import 'package:tasks/data/models/project_model.dart';
 
-class ProjectLocalDatasource extends ProjectLocalDataSource {
+class ProjectLocalDatasource extends ProjectDataSource {
   @override
   Future<List<ProjectModel>> getProjects() async {
     try {
@@ -14,7 +14,7 @@ class ProjectLocalDatasource extends ProjectLocalDataSource {
         return txn.rawQuery(Queries.project);
       });
       List<ProjectModel> projects = data.map((row) {
-        return ProjectModel.fromMap(row);
+        return ProjectModel.fromSqlite(row);
       }).toList();
       return projects;
     } on DatabaseException catch (_) {
@@ -32,7 +32,7 @@ class ProjectLocalDatasource extends ProjectLocalDataSource {
             conflictAlgorithm: ConflictAlgorithm.replace);
       });
       project["id"] = id;
-      return ProjectModel.fromMap(project);
+      return ProjectModel.fromSqlite(project);
     } on DatabaseException catch (_) {
       throw ex.DatabaseException(
           "An unexpected error happened when trying to execute the operation");
@@ -64,7 +64,7 @@ class ProjectLocalDatasource extends ProjectLocalDataSource {
         }
         throw ex.DatabaseException("The requested project could not be found");
       });
-      ProjectModel project = ProjectModel.fromMap(projectData);
+      ProjectModel project = ProjectModel.fromSqlite(projectData);
       return project;
     } on DatabaseException catch (_) {
       throw ex.DatabaseException(

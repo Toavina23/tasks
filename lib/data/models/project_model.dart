@@ -10,9 +10,9 @@ class ProjectModel extends Equatable {
   const ProjectModel(this.id, this.name, this.createdAt, this.category);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [id, name, createdAt, category];
 
-  factory ProjectModel.fromMap(Map<String, dynamic> data) {
+  factory ProjectModel.fromSqlite(Map<String, dynamic> data) {
     return ProjectModel(
         data["id"],
         data["name"],

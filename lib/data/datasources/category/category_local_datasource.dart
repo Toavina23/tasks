@@ -14,7 +14,7 @@ class CategoryLocalDataSource implements CategoryDataSource {
         return await txn.query('category');
       });
       List<CategoryModel> categories = data.map<CategoryModel>((row) {
-        return CategoryModel.fromJson(row);
+        return CategoryModel.fromMap(row);
       }).toList();
       return categories;
     } on DatabaseException catch (_) {
