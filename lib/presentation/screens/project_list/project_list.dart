@@ -50,7 +50,7 @@ class _ProjectListState extends State<ProjectList> {
 
   _addProject() {
     context.read<ProjectListBloc>().add(FetchCategoryListEvent());
-    showBottomSheet(
+    showModalBottomSheet(
       elevation: 20,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

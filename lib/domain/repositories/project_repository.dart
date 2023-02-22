@@ -9,4 +9,7 @@ abstract class ProjectRepository {
       String projectName, CategoryEntity category);
   Future<Either<Failure, void>> deleteProject(int projectId);
   Future<Either<Failure, List<Object>>> getProject(int projectId);
+  Future<Either<Failure, void>> addNewProjectTask(
+      String taskName, int projectId);
+  Future<Either<Failure, void>> deleteProjectTask(int taskId);
 }

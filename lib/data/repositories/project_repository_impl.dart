@@ -83,4 +83,40 @@ class ProjectRepositoryImpl implements ProjectRepository {
           "An unexpected error happened during the operation"));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> addNewProjectTask(
+      String taskName, int projectId) async {
+    try {
+      TaskModel taskModel =
+          await taskDatasource.saveProjectTask(taskName, projectId);
+      final tasks = [..._taskStreamController.value];
+      tasks.add(taskModel.toEntity());
+      return right(_taskStreamController.add(tasks));
+    } on DatabaseException catch (e) {
+      return left(AppFailure(e.message));
+    } catch (_) {
+      return left(const AppFailure(
+          "An unexpected error happened during the operation"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteProjectTask(int taskId) async {
+    try {
+      await taskDatasource.deleteProjectTask(taskId);
+
+      final tasks = [..._taskStreamController.value];
+      int taskIndex = tasks.indexWhere((element) => element.id == taskId);
+      if (taskIndex != -1) {
+        tasks.removeAt(taskIndex);
+      }
+      return right(_taskStreamController.add(tasks));
+    } on DatabaseException catch (e) {
+      return left(AppFailure(e.message));
+    } catch (_) {
+      return left(const AppFailure(
+          "An unexpected error happened during the operation"));
+    }
+  }
 }

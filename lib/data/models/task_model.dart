@@ -25,7 +25,7 @@ class TaskModel extends Equatable {
       required this.name,
       required this.createdAt,
       required this.status,
-      required this.executionTime,
+      this.executionTime = 0,
       this.parent,
       this.project});
 
@@ -47,9 +47,9 @@ class TaskModel extends Equatable {
     return TaskModel(
         id: data["id"],
         name: data["name"],
-        createdAt: data["createdAt"],
+        createdAt: DateTime.fromMillisecondsSinceEpoch(data["createdAt"]),
         status: setStatus(data["status"]),
-        executionTime: data["executionTime"]);
+        executionTime: data["executionTime"] ?? 0);
   }
   TaskEntity toEntity() {
     return TaskEntity(

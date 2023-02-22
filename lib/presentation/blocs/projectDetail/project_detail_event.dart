@@ -12,3 +12,17 @@ class FetchProjectDetailEvent extends ProjectDetailEvent {
   @override
   List<Object?> get props => [projectId];
 }
+
+class AddNewProjectTask extends ProjectDetailEvent {
+  final String newTaskName;
+  const AddNewProjectTask(this.newTaskName);
+  @override
+  List<Object?> get props => [newTaskName];
+}
+
+class DeleteProjectTask extends ProjectDetailEvent {
+  final int taskId;
+  const DeleteProjectTask(this.taskId);
+  @override
+  List<Object?> get props => [taskId];
+}
